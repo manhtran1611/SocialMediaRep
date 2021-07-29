@@ -2,13 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { PostAuthor } from "./PostAuthor";
-// import { ReactionButtons } from "./ReactionButtons";
+import { selectPostById } from "./postsSlice";
 export const SinglePostPage = ({ match }: any) => {
   const { postId } = match.params;
 
-  const post = useAppSelector((state) =>
-    state.posts.find((post) => post.id === postId)
-  );
+  const post = useAppSelector((state) => selectPostById(state, postId));
 
   if (!post) {
     return (
