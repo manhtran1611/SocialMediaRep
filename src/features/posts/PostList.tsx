@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { PostAuthor } from "./PostAuthor";
-import { fetchPosts, selectAllPosts } from "./postsSlice";
 import { TimeAgo } from "./TimeAgo";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { PostAuthor } from "./PostAuthor";
 import { ReactionButtons } from "./ReactionButtons";
+import { fetchPosts, selectPostIds, selectPostById } from "./postsSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
-const PostExcerpt = ({ post }: any) => {
+let PostExcerpt = ({ postId }: any) => {
+  const post = useAppSelector((state) => selectPostById(state, postId));
   return (
     <article className="post-excerpt" key={post.id}>
       <h3>{post.title}</h3>
@@ -15,6 +16,7 @@ const PostExcerpt = ({ post }: any) => {
         <TimeAgo timestamp={post.date} />
       </div>
       <p className="post-content">{post.content.substring(0, 100)}</p>
+
       <ReactionButtons post={post} />
       <Link to={`/posts/${post.id}`} className="button muted-button">
         View Post
@@ -22,13 +24,14 @@ const PostExcerpt = ({ post }: any) => {
     </article>
   );
 };
-
+// PostExcerpt = React.memo(PostExcerpt);
 export const PostsList = () => {
   const dispatch = useAppDispatch();
-  const posts = useAppSelector(selectAllPosts);
+  const orderedPostIds = useAppSelector(selectPostIds);
 
   const postStatus = useAppSelector((state) => state.posts.status);
   const error = useAppSelector((state) => state.posts.error);
+
   useEffect(() => {
     if (postStatus === "idle") {
       dispatch(fetchPosts());
@@ -38,18 +41,16 @@ export const PostsList = () => {
   let content;
 
   if (postStatus === "loading") {
-    content = <div className="loading">Loading...</div>;
+    content = <div className="loader">Loading...</div>;
   } else if (postStatus === "succeeded") {
-    const orderedPosts = posts
-      .slice()
-      .sort((a: any, b: any) => b.date.localeCompare(a.date));
-
-    content = orderedPosts.map((post: any) => (
-      <PostExcerpt key={post.id} post={post} />
+    // Sort posts in reverse chronological order by datetime string
+    content = orderedPostIds.map((postId) => (
+      <PostExcerpt key={postId} postId={postId} />
     ));
-  } else if (postStatus === "failed") {
+  } else if (postStatus === "error") {
     content = <div>{error}</div>;
   }
+
   return (
     <section className="posts-list">
       <h2>Posts</h2>

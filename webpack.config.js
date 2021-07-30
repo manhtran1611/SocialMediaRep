@@ -2,9 +2,9 @@ import path from "path";
 
 module.exports = {
   mode: "development",
-  entry: "./src/index.tsx",
+  entry: "./src/index.js",
   output: {
-    filename: "app.tsx",
+    filename: "app.js",
     path: path.resolve(__dirname, "dist"),
   },
   devServer: {

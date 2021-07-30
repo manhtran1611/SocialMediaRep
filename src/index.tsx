@@ -2,11 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import { fetchUsers } from "./features/users/usersSlice";
 import { Provider } from "react-redux";
 import store from "./app/store";
 import reportWebVitals from "./reportWebVitals";
 
 import "./api/server";
+
+store.dispatch(fetchUsers());
 
 ReactDOM.render(
   <React.StrictMode>

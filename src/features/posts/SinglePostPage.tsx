@@ -24,7 +24,6 @@ export const SinglePostPage = ({ match }: any) => {
           Edit Post
         </Link>
         <PostAuthor userId={postId} />
-        {/* <ReactionButtons post={postId} /> */}
       </article>
     </section>
   );
