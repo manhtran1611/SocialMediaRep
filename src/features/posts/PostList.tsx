@@ -24,7 +24,6 @@ let PostExcerpt = ({ postId }: any) => {
     </article>
   );
 };
-// PostExcerpt = React.memo(PostExcerpt);
 export const PostsList = () => {
   const dispatch = useAppDispatch();
   const orderedPostIds = useAppSelector(selectPostIds);
