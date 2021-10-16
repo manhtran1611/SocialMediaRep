@@ -9,6 +9,7 @@ A simple replicated of a social media where you can add a new post, add comments
 - [Overview](#overview)
   - [The challenge](#the-challenge)
   - [Screenshot](#screenshot)
+  - [Link](#link)
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
@@ -27,6 +28,11 @@ Users should be able to:
 ### Screenshot
 
 ![](./screenshot.png)
+
+### Link
+
+- You can view the page live here: https://manhtran1611.github.io/SocialMediaRep
+
 
 ## My process
 
